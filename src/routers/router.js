@@ -1,14 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
 import SideBar from "../components/sidebar/SideBar";
+import LoadingPage from "../pages/loading/LoadingPage";
+import HomePage from "../pages/home/HomePage";
+import CollectionsLayout from "../layouts/CollectionsLayout";
 
 const routers = createBrowserRouter([
   {
-    path: "/home",
-    // element: ,
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "*",
+    element: <LoadingPage />,
   },
   {
     path: "/collections",
-    element: <SideBar />,
+    element: <CollectionsLayout />,
     children: [
       {
         path: "TOPS",

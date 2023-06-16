@@ -1,0 +1,22 @@
+.options {
+  display: block;
+  margin: 48px;
+  position: absolute;
+  z-index: 10;
+  top: 75%;
+  left: 0;
+  &__btn {
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif !important;
+    background-color: white;
+    border: 1px solid white;
+    line-height: 24px;
+    padding: 8px 24px;
+    color: black !important;
+    transition: background-color 0.5s linear;
+    &:hover {
+      background-color: transparent;
+      color: white !important;
+    }
+  }
+}
