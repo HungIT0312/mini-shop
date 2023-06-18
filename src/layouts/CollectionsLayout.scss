@@ -1,0 +1,20 @@
+.breadcrumb_wrapper {
+  display: block;
+  height: 50px;
+  padding: 0px 110px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #cccccc9b;
+  display: flex;
+  align-items: center;
+}
+.main {
+  position: relative;
+  padding: 0 110px;
+  min-height: 280;
+  background-color: white;
+}
+.sidebox {
+  position: sticky;
+  top: 70px;
+  z-index: 20;
+}

@@ -1,7 +1,8 @@
 import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
-import { Breadcrumb, Menu } from "antd";
+import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./SideMenu.scss";
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -36,35 +37,25 @@ const SideBar = () => {
   const pathArr = pathname.split("/").filter((item) => item);
   useEffect(() => {
     setMainPath(pathArr[0]);
-  }, []);
+    document.title = `${pathArr[1]}- MiniShop`;
+  }, [pathArr]);
 
   const onClick = (e) => {
     const childPath = e.key;
     const path = "/" + mainPath + "/" + childPath;
+    document.title = `${childPath}- MiniShop`;
     navigate(path);
   };
 
-  const itemBreadcrumb = pathArr.map((path) =>
-    path === pathArr[pathArr.length - 1]
-      ? { title: path }
-      : { title: <Link>{path}</Link> }
-  );
   return (
-    <>
-      <Breadcrumb
-        items={[{ title: <Link>Home</Link> }, ...itemBreadcrumb]}
-      ></Breadcrumb>
-      <Menu
-        onClick={onClick}
-        style={{
-          width: 256,
-        }}
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
-        mode="inline"
-        items={items}
-      />
-    </>
+    <Menu
+      onClick={onClick}
+      className="menubox"
+      defaultSelectedKeys={["1"]}
+      defaultOpenKeys={["sub1"]}
+      mode="inline"
+      items={items}
+    />
   );
 };
 

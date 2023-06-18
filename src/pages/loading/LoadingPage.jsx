@@ -1,4 +1,4 @@
-import { Layout, Space, Spin } from "antd";
+import { Space, Spin } from "antd";
 import React from "react";
 
 const LoadingPage = () => {
