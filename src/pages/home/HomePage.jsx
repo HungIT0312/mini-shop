@@ -6,7 +6,6 @@ import CardItem from "../../components/card/CardItem";
 import HeaderPage from "../../components/header/HeaderPage";
 import Introductions from "../../components/introductions/Introductions";
 import "./HomePage.scss";
-import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   useEffect(() => {
     document.title = "MiniShop Clothings";

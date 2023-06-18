@@ -1,5 +1,5 @@
 import { Breadcrumb, Layout, Space } from "antd";
-import { Content, Footer } from "antd/es/layout/layout";
+import { Content } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import HeaderPage from "../components/header/HeaderPage";
