@@ -5,11 +5,13 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import HeaderPage from "../components/header/HeaderPage";
 import Introductions from "../components/introductions/Introductions";
 import "./CollectionsLayout.scss";
+import usePageTitle from "../hooks/usePageTitle";
 
 const CollectionsLayout = (props) => {
   const { pathname } = useLocation();
   const [, setMainPath] = useState("");
   const pathArr = pathname.split("/").filter((item) => item);
+  usePageTitle();
   useEffect(() => {
     setMainPath(pathArr[0]);
   }, [pathArr]);

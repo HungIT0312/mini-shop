@@ -35,16 +35,15 @@ const SideBar = () => {
   const [, setMainPath] = useState("");
   const navigate = useNavigate();
   const pathArr = pathname.split("/").filter((item) => item);
+
   useEffect(() => {
     setMainPath(pathArr[0]);
-    document.title = `${pathArr[1]}- MiniShop`;
   }, [pathArr]);
 
   const onClick = (e) => {
     const childPath = e.key;
     const parentPath = e.keyPath[1];
     const path = "/" + parentPath + "/" + childPath;
-    document.title = `${childPath}- MiniShop`;
     navigate(path);
   };
 
