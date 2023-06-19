@@ -10,6 +10,7 @@ import {
 import { Drawer, Menu, Space } from "antd";
 import Cart from "../cart/Cart";
 import User from "../user/User";
+import LoadingPage from "../../pages/loading/LoadingPage";
 const HeaderPage = () => {
   const { pathname } = useLocation();
   const [isScroll, setIsScroll] = useState(false);
@@ -53,7 +54,19 @@ const HeaderPage = () => {
     setOpenDrawer(!openDrawer);
     setDrawerItem(item);
   };
+  const renderDrawerContent = (key) => {
+    switch (key) {
+      case "cart":
+        return <Cart drawer={setOpenDrawer} />;
+      case "user":
+        return <User drawer={setOpenDrawer} />;
+      case "search":
+        return <LoadingPage />;
 
+      default:
+        break;
+    }
+  };
   const items = [
     {
       label: "Home",
@@ -113,7 +126,11 @@ const HeaderPage = () => {
       )}
 
       <Space className="icon">
-        <SearchOutlined title="Search" className="icon__i" />
+        <SearchOutlined
+          title="Search"
+          className="icon__i"
+          onClick={() => openDrawerHandler("search")}
+        />
         <UserOutlined
           title="Profile"
           className="icon__i"
@@ -132,7 +149,7 @@ const HeaderPage = () => {
             className="mobile-menu"
             width={"30%"}
           >
-            {drawerItem === "cart" ? <Cart /> : <User />}
+            {renderDrawerContent(drawerItem)}
           </Drawer>
         )}
         <span className="quantity">(0)</span>

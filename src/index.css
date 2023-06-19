@@ -33,12 +33,14 @@ code {
 /* Track (phần nền của thanh cuộn) */
 ::-webkit-scrollbar-track {
   background: #000;
+
   /* Màu nền của thanh cuộn */
 }
 
 /* Thumb (thanh cuộn chính) */
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 100px;
   /* Màu của thanh cuộn */
 }
 

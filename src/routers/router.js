@@ -2,9 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import CollectionsLayout from "../layouts/CollectionsLayout";
 import HomePage from "../pages/home/HomePage";
 import LoadingPage from "../pages/loading/LoadingPage";
-import Cart from "../components/cart/Cart";
 import Products from "../pages/products/Products";
-import User from "../components/user/User";
+import Cart from "../components/cart/Cart";
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -15,12 +14,51 @@ const routers = createBrowserRouter([
     element: <LoadingPage />,
   },
   {
+    path: "/checkouts",
+    element: <CollectionsLayout />,
+    children: [
+      {
+        path: ":idCart",
+        element: <LoadingPage />,
+      },
+    ],
+  },
+  {
+    path: "/cart",
+    element: <CollectionsLayout />,
+    children: [
+      {
+        path: "",
+        element: <Cart />,
+      },
+      {
+        path: "information",
+        element: <LoadingPage />,
+      },
+    ],
+  },
+  {
+    path: "/account",
+    element: <CollectionsLayout />,
+
+    children: [
+      {
+        path: "login",
+        element: <LoadingPage />,
+      },
+      {
+        path: "register",
+        element: <LoadingPage />,
+      },
+    ],
+  },
+  {
     path: "/collections",
     element: <CollectionsLayout />,
     children: [
       {
         path: "TOPS",
-        element: <Cart />,
+        element: <Products />,
 
         index: true,
       },
@@ -30,7 +68,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "Accessories",
-        element: <User />,
+        element: <Products />,
       },
     ],
     default: true,

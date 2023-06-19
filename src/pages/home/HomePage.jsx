@@ -40,7 +40,7 @@ const HomePage = () => {
           <Banner />
         </div>
         <div className="products">
-          <p>PRODUTCS</p>
+          <p>PRODUCTS</p>
         </div>
         <div style={{ margin: "64px 24px", position: "relative" }}>
           <Row gutter={18}>{renderCart}</Row>

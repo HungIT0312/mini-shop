@@ -1,14 +1,32 @@
 import { Avatar, Col, Form, Image, Input, Row, Select, Space } from "antd";
 import { Option } from "antd/es/mentions";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./User.scss";
+import { useNavigate } from "react-router-dom";
 const url =
   "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg";
-const User = () => {
+const User = (props) => {
   const [form] = Form.useForm();
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = localStorage.getItem("token");
+    if (user) {
+      setIsLogin(true);
+    }
+  }, []);
+  const onLoginHandler = () => {
+    props.drawer(false);
+    navigate("/account/login");
+  };
   return (
     <Space className="infor">
-      <p className="infor__title">User Information</p>
+      {isLogin ? (
+        <p className="infor__title">User Information</p>
+      ) : (
+        <p className="infor__title">Login</p>
+      )}
+
       <Avatar
         size={{
           xs: 24,
@@ -21,28 +39,41 @@ const User = () => {
         src={<Image src={url} alt="Avatar"></Image>}
         className="infor__avatar"
       />
-      <Space className="infor__container">
-        <Form form={form}>
-          <Form.Item name="userName">
-            <Input placeholder="UserName" />
-          </Form.Item>
-          <Row gutter={16}>
-            <Col>
-              <Form.Item name="fullName">
-                <Input placeholder="FullName" />
-              </Form.Item>
-            </Col>
-            <Col>
-              <Select name="gender" defaultValue={"male"}>
-                <Option key="male">Male</Option>
-              </Select>
-            </Col>
-          </Row>
-          <Form.Item name="email">
-            <Input placeholder="email" />
-          </Form.Item>
-        </Form>
-      </Space>
+      {isLogin ? (
+        <Space className="infor__container">
+          <Form form={form}>
+            <Form.Item name="userName">
+              <Input placeholder="UserName" />
+            </Form.Item>
+            <Row gutter={16}>
+              <Col>
+                <Form.Item name="fullName">
+                  <Input placeholder="FullName" />
+                </Form.Item>
+              </Col>
+              <Col>
+                <Select name="gender" defaultValue={"male"}>
+                  <Option key="male">Male</Option>
+                </Select>
+              </Col>
+            </Row>
+            <Form.Item name="email">
+              <Input placeholder="email" />
+            </Form.Item>
+          </Form>
+        </Space>
+      ) : (
+        <>
+          <p>Please login to order and ...</p>
+          <div
+            className="cart__btn_w"
+            style={{ margin: 0 }}
+            onClick={onLoginHandler}
+          >
+            Login
+          </div>
+        </>
+      )}
     </Space>
   );
 };
