@@ -52,7 +52,7 @@ const SideBar = () => {
     <Menu
       onClick={onClick}
       className="menubox"
-      defaultSelectedKeys={["1"]}
+      defaultSelectedKeys={`${pathArr[1]}`}
       defaultOpenKeys={["sub1"]}
       mode="inline"
       items={items}
