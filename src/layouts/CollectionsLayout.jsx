@@ -1,4 +1,5 @@
-import { Breadcrumb, Layout, Space } from "antd";
+import { Breadcrumb, Layout, Space, theme } from "antd";
+import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -9,16 +10,18 @@ import "./CollectionsLayout.scss";
 
 const CollectionsLayout = () => {
   const { pathname } = useLocation();
-  const [mainPath, setMainPath] = useState("");
+  const [, setMainPath] = useState("");
   const pathArr = pathname.split("/").filter((item) => item);
   useEffect(() => {
     setMainPath(pathArr[0]);
   }, [pathArr]);
-
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   const itemBreadcrumb = pathArr.map((path) =>
     path === pathArr[pathArr.length - 1]
       ? { title: path }
-      : { title: <Link>{path}</Link> }
+      : { title: <Link to={`/${path}`}>{path}</Link> }
   );
   return (
     <Layout style={{ height: "100vh" }}>
@@ -27,25 +30,32 @@ const CollectionsLayout = () => {
       <Content>
         <Space className="breadcrumb_wrapper">
           <Breadcrumb
-            items={[{ title: <Link>Home</Link> }, ...itemBreadcrumb]}
+            items={[{ title: <Link to={"/"}>Home</Link> }, ...itemBreadcrumb]}
           ></Breadcrumb>
         </Space>
 
-        <Layout className="main">
-          <div className="sidebox">
+        <Layout className="mainPage">
+          <Sider
+            width={"256px"}
+            style={{
+              background: colorBgContainer,
+            }}
+            className="sidebox"
+          >
             <SideBar />
-          </div>
+          </Sider>
           <Content
             style={{
               padding: "0 24px",
               minHeight: 280,
+              marginTop: 30,
             }}
           >
             <Outlet></Outlet>
           </Content>
         </Layout>
+        <Introductions></Introductions>
       </Content>
-      <Introductions />
     </Layout>
   );
 };

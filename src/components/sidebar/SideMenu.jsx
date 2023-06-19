@@ -1,4 +1,4 @@
-import { AppstoreOutlined, MailOutlined } from "@ant-design/icons";
+import { MobileOutlined, SkinOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,12 +13,12 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const items = [
-  getItem("CLOTHES", "CLOTHES", <MailOutlined />, [
+  getItem("CLOTHES", "collections", <SkinOutlined />, [
     getItem("TOPS", "TOPS"),
     getItem("BOTTOMS", "BOTTOMS"),
     getItem("ACCESSORIES", "ACCESSORIES"),
   ]),
-  getItem("SMART DEVICE", "smart-devices", <AppstoreOutlined />, [
+  getItem("SMART DEVICE", "smart-devices", <MobileOutlined />, [
     getItem("PHONES", "PHONES"),
     getItem("LAPTOPS", "LAPTOPS"),
     getItem("Submenu", "sub3", null, [
@@ -32,7 +32,7 @@ const items = [
 ];
 const SideBar = () => {
   const { pathname } = useLocation();
-  const [mainPath, setMainPath] = useState("");
+  const [, setMainPath] = useState("");
   const navigate = useNavigate();
   const pathArr = pathname.split("/").filter((item) => item);
   useEffect(() => {
@@ -42,7 +42,8 @@ const SideBar = () => {
 
   const onClick = (e) => {
     const childPath = e.key;
-    const path = "/" + mainPath + "/" + childPath;
+    const parentPath = e.keyPath[1];
+    const path = "/" + parentPath + "/" + childPath;
     document.title = `${childPath}- MiniShop`;
     navigate(path);
   };

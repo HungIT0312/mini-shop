@@ -8,11 +8,15 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Drawer, Menu, Space } from "antd";
+import Cart from "../cart/Cart";
+import User from "../user/User";
 const HeaderPage = () => {
   const { pathname } = useLocation();
   const [isScroll, setIsScroll] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [drawerItem, setDrawerItem] = useState("");
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 240) {
@@ -45,6 +49,10 @@ const HeaderPage = () => {
   const handleMenuClick = () => {
     setIsDrawerVisible(!isDrawerVisible);
   };
+  const openDrawerHandler = (item) => {
+    setOpenDrawer(!openDrawer);
+    setDrawerItem(item);
+  };
 
   const items = [
     {
@@ -57,11 +65,11 @@ const HeaderPage = () => {
     },
     {
       label: "BOTTOMS",
-      href: "/collection/BOTTOMS",
+      href: "/collections/BOTTOMS",
     },
     {
       label: "Accessories",
-      href: "/collection/Accessories",
+      href: "/collections/Accessories",
     },
   ];
   const navItems = items.map((item, index) => {
@@ -88,7 +96,7 @@ const HeaderPage = () => {
           <Drawer
             placement="right"
             onClose={() => setIsDrawerVisible(false)}
-            visible={isDrawerVisible}
+            open={isDrawerVisible}
             className="mobile-menu"
             width={"50vw"}
           >
@@ -103,10 +111,30 @@ const HeaderPage = () => {
       ) : (
         <Space className="navbar">{navItems}</Space>
       )}
+
       <Space className="icon">
         <SearchOutlined title="Search" className="icon__i" />
-        <UserOutlined title="Profile" className="icon__i" />
-        <ShoppingCartOutlined title="Cart" className="icon__i" />
+        <UserOutlined
+          title="Profile"
+          className="icon__i"
+          onClick={() => openDrawerHandler("user")}
+        />
+        <ShoppingCartOutlined
+          title="Cart"
+          className="icon__i"
+          onClick={() => openDrawerHandler("cart")}
+        />
+        {openDrawer && (
+          <Drawer
+            placement="right"
+            onClose={() => setOpenDrawer(false)}
+            open={openDrawer}
+            className="mobile-menu"
+            width={"30%"}
+          >
+            {drawerItem === "cart" ? <Cart /> : <User />}
+          </Drawer>
+        )}
         <span className="quantity">(0)</span>
         {isMobile && (
           <MenuOutlined className="menu-icon" onClick={handleMenuClick} />

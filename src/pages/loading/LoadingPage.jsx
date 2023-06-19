@@ -3,10 +3,18 @@ import React from "react";
 
 const LoadingPage = () => {
   return (
-    <Space size="middle" align="center" content="center">
-      <Spin tip="Loading" size="small">
-        <div className="content" />
-      </Spin>
+    <Space
+      direction="horizontal"
+      style={{
+        width: "100%",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Space>
+        <Spin tip="Loading" size="large" />
+      </Space>
     </Space>
   );
 };
