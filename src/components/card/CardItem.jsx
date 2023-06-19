@@ -1,4 +1,4 @@
-import { Col, Image } from "antd";
+import { Col, Image, Skeleton } from "antd";
 import React from "react";
 import "./CardItem.scss";
 import LazyLoad from "react-lazyload";
@@ -9,13 +9,18 @@ const CardItem = (props) => {
     navigate(`/collections/${props.title}`);
   };
   return (
-    <Col span={8} style={{ position: "relative" }} onClick={clickCardHandler}>
+    <Col
+      xs={24}
+      md={8}
+      style={{ position: "relative" }}
+      onClick={clickCardHandler}
+    >
       <div className="options">
         <div className="options__title">{props.title}</div>
         <div className="options__btn">SEE MORE</div>
       </div>
       <div className="box">
-        <LazyLoad height={673}>
+        <LazyLoad height={673} placeholder={<Skeleton.Image active />}>
           <Image className="box__image" src={props.src} preview={false} />
         </LazyLoad>
       </div>
