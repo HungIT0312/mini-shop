@@ -64,7 +64,7 @@ const HeaderPage = () => {
       href: "/collections/TOPS",
     },
     {
-      label: "BOTTOMS",
+      label: "Bottoms",
       href: "/collections/BOTTOMS",
     },
     {
