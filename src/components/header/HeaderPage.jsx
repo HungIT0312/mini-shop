@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import "./Header.scss";
 import {
   MenuOutlined,
   SearchOutlined,
@@ -8,9 +5,12 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Drawer, Menu, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Cart from "../cart/Cart";
+import SearchForm from "../search/SearchForm";
 import User from "../user/User";
-import LoadingPage from "../../pages/loading/LoadingPage";
+import "./Header.scss";
 const HeaderPage = () => {
   const { pathname } = useLocation();
   const [isScroll, setIsScroll] = useState(false);
@@ -61,7 +61,7 @@ const HeaderPage = () => {
       case "user":
         return <User drawer={setOpenDrawer} />;
       case "search":
-        return <LoadingPage />;
+        return <SearchForm />;
 
       default:
         break;

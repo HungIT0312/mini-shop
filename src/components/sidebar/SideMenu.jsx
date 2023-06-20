@@ -16,7 +16,7 @@ const items = [
   getItem("CLOTHES", "collections", <SkinOutlined />, [
     getItem("TOPS", "TOPS"),
     getItem("BOTTOMS", "BOTTOMS"),
-    getItem("ACCESSORIES", "ACCESSORIES"),
+    getItem("ACCESSORIES", "Accessories"),
   ]),
   getItem("SMART DEVICE", "smart-devices", <MobileOutlined />, [
     getItem("PHONES", "PHONES"),
@@ -51,7 +51,7 @@ const SideBar = () => {
     <Menu
       onClick={onClick}
       className="menubox"
-      defaultSelectedKeys={`${pathArr[1]}`}
+      defaultSelectedKeys={[`${pathArr[1]}`]}
       defaultOpenKeys={["sub1"]}
       mode="inline"
       items={items}

@@ -3,7 +3,7 @@ import React from "react";
 import "./CartItemPreview.scss";
 const CartItemPreview = (props) => {
   return (
-    <Space>
+    <Space style={{ margin: "8px 0" }}>
       <Image
         src="https://product.hstatic.net/200000018774/product/4_14009cc96d274b9fb750b72ed127d189_master.jpg"
         width={64}

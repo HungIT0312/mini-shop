@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Cart.scss";
 import CartItemPreview from "./CartItemPreview";
 import { useNavigate } from "react-router-dom";
 const Cart = (props) => {
   const [cartItem] = useState([]);
   const navigate = useNavigate();
+  const item = 4;
+  useEffect(() => {
+    const cartContainer = document.querySelector(".cart__container");
+    if (item > 3) {
+      cartContainer.classList.add("cart_scroll");
+    } else cartContainer.classList.remove("cart_scroll");
+  }, []);
+
   const checkoutsHandler = () => {
     if (props.drawer) {
       props?.drawer(false);
@@ -24,6 +32,9 @@ const Cart = (props) => {
       <div className="cart__content">
         {!cartItem && <p className="cart__alert">Hiện chưa có sản phẩm.</p>}
         <div className="cart__container">
+          <CartItemPreview />
+          <CartItemPreview />
+          <CartItemPreview />
           <CartItemPreview />
         </div>
       </div>

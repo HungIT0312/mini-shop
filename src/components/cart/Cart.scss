@@ -39,6 +39,11 @@
   }
   &__container {
     display: flex;
+    flex-direction: column;
+    max-height: 320px;
+  }
+  &_scroll {
+    overflow-y: scroll;
   }
 }
 .cart__total {
