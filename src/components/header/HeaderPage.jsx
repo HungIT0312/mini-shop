@@ -147,7 +147,7 @@ const HeaderPage = () => {
             onClose={() => setOpenDrawer(false)}
             open={openDrawer}
             className="mobile-menu"
-            width={"30%"}
+            width={isMobile ? "50vw" : "30%"}
           >
             {renderDrawerContent(drawerItem)}
           </Drawer>
