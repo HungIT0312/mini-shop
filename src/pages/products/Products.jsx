@@ -1,22 +1,27 @@
-import { theme } from "antd";
+import { Row, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../components/sidebar/SideMenu";
+import { getAllProducts } from "../../api/products/GetAll";
+import Product from "../../components/product/Product";
 
 const Products = (props) => {
-  // useEffect(() => {
-  //   const _getAllProducts = async () => {
-  //     const res = await getAllProducts();
-  //     console.log(res);
-  //   };
-  //   _getAllProducts();
-  //   return () => {};
-  // }, []);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const _getAllProducts = async () => {
+      const res = await getAllProducts();
+      console.log(res);
+      setProducts(res.products);
+    };
+    _getAllProducts();
+  }, []);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  const renderProducts = products.map((product, index) => {
+    return <Product key={product.id} product={product} />;
+  });
   return (
     <>
       <Sider
@@ -34,7 +39,9 @@ const Products = (props) => {
           minHeight: 280,
           marginTop: 30,
         }}
-      ></Content>
+      >
+        <Row gutter={16}>{renderProducts}</Row>
+      </Content>
     </>
   );
 };

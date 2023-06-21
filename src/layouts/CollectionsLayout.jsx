@@ -33,7 +33,6 @@ const CollectionsLayout = (props) => {
         </Space>
 
         <Layout className="mainPage">
-          {props.children}
           <Outlet />
         </Layout>
         <Introductions></Introductions>

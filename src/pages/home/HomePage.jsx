@@ -23,8 +23,8 @@ const HomePage = () => {
   };
 
   const entries = Object.entries(imageCard);
-  const renderCart = entries.map(([key, value]) => {
-    return <CardItem src={value} title={key} />;
+  const renderCart = entries.map(([key, value], index) => {
+    return <CardItem key={index} src={value} title={key} />;
   });
 
   return (
