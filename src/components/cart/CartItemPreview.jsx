@@ -7,7 +7,10 @@ import { deleteProduct } from "../../stores/cart/cart-slice";
 const CartItemPreview = (props) => {
   const dispatch = useDispatch();
   const deleteProductHandler = () => {
-    dispatch(deleteProduct(props.product?.id));
+    const item = {
+      ...props.product,
+    };
+    dispatch(deleteProduct(item));
   };
   return (
     <Space style={{ margin: "8px 0", position: "relative" }}>
