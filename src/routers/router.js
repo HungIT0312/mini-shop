@@ -6,6 +6,7 @@ import Products from "../pages/products/Products";
 import Cart from "../components/cart/Cart";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
+import Detail from "../pages/product-detail/Detail";
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +92,14 @@ const routers = createBrowserRouter([
         path: "LAPTOPS",
         element: <LoadingPage />,
       },
+    ],
+  },
+  {
+    path: "/products",
+    element: <CollectionsLayout />,
+    children: [
+      { path: "", element: <Products /> },
+      { path: ":idProduct", element: <Detail /> },
     ],
   },
 ]);

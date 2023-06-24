@@ -11,6 +11,7 @@ import Cart from "../cart/Cart";
 import SearchForm from "../search/SearchForm";
 import User from "../user/User";
 import "./Header.scss";
+import { useSelector } from "react-redux";
 const HeaderPage = () => {
   const { pathname } = useLocation();
   const [isScroll, setIsScroll] = useState(false);
@@ -18,6 +19,7 @@ const HeaderPage = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [drawerItem, setDrawerItem] = useState("");
+  const items = useSelector((state) => state.cart.items);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 240) {
@@ -67,7 +69,7 @@ const HeaderPage = () => {
         break;
     }
   };
-  const items = [
+  const links = [
     {
       label: "Home",
       href: "/",
@@ -85,7 +87,7 @@ const HeaderPage = () => {
       href: "/collections/Accessories",
     },
   ];
-  const navItems = items.map((item, index) => {
+  const navItems = links.map((item, index) => {
     return (
       <div className="navbar__item">
         <Link
@@ -152,7 +154,7 @@ const HeaderPage = () => {
             {renderDrawerContent(drawerItem)}
           </Drawer>
         )}
-        <span className="quantity">(0)</span>
+        <span className="quantity">({items.length})</span>
         {isMobile && (
           <MenuOutlined className="menu-icon" onClick={handleMenuClick} />
         )}

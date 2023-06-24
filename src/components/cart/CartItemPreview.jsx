@@ -1,17 +1,21 @@
 import { Image, Space } from "antd";
 import React from "react";
 import "./CartItemPreview.scss";
+import { CloseOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../../stores/cart/cart-slice";
 const CartItemPreview = (props) => {
+  const dispatch = useDispatch();
+  const deleteProductHandler = () => {
+    dispatch(deleteProduct(props.product?.id));
+  };
   return (
-    <Space style={{ margin: "8px 0" }}>
-      <Image
-        src="https://product.hstatic.net/200000018774/product/4_14009cc96d274b9fb750b72ed127d189_master.jpg"
-        width={64}
-      ></Image>
+    <Space style={{ margin: "8px 0", position: "relative" }}>
+      <Image src={props.product?.images[0]} width={64}></Image>
       <Space className="clothes wrapper" style={{ alignItems: "flex-start" }}>
-        <div className="clothes__name">Ao Mixer mau den </div>
+        <div className="clothes__name">{props.product?.title}</div>
         <span className="clothes__size" style={{ color: "#333", fontSize: 12 }}>
-          S
+          {props?.product?.size}
         </span>
         <Space>
           <Space
@@ -25,16 +29,19 @@ const CartItemPreview = (props) => {
             }}
             className="clothes__quantity"
           >
-            2
+            {props?.product?.quantity}
           </Space>
           <span
             className="clothes__price"
             style={{ color: "#333", fontSize: 12 }}
           >
-            290.000$
+            {props.product?.price}$
           </span>
         </Space>
       </Space>
+      <div className="delBtn">
+        <CloseOutlined onClick={deleteProductHandler} />
+      </div>
     </Space>
   );
 };

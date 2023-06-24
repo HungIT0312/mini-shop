@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./Cart.scss";
 import CartItemPreview from "./CartItemPreview";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Cart = (props) => {
   const [cartItem] = useState([]);
   const navigate = useNavigate();
-  const item = 4;
+  const { items, totalAmount } = useSelector((state) => state.cart);
   useEffect(() => {
     const cartContainer = document.querySelector(".cart__container");
-    if (item > 3) {
+    if (items.length > 3) {
       cartContainer.classList.add("cart_scroll");
     } else cartContainer.classList.remove("cart_scroll");
-  }, []);
+  }, [items]);
 
   const checkoutsHandler = () => {
     if (props.drawer) {
@@ -25,22 +26,20 @@ const Cart = (props) => {
     }
     navigate("/cart");
   };
+  const renderCartItem = items.map((item) => {
+    return <CartItemPreview product={item} />;
+  });
 
   return (
     <div className="cart">
-      <div className="cart__title">GIỎ HÀNG</div>
+      <div className="cart__title">CART</div>
       <div className="cart__content">
-        {!cartItem && <p className="cart__alert">Hiện chưa có sản phẩm.</p>}
-        <div className="cart__container">
-          <CartItemPreview />
-          <CartItemPreview />
-          <CartItemPreview />
-          <CartItemPreview />
-        </div>
+        {!cartItem && <p className="cart__alert">BUY SOMETHING.</p>}
+        <div className="cart__container">{renderCartItem}</div>
       </div>
       <div className="cart__total">
-        <span className="cart__total_title">TỔNG:</span>
-        <span className="cart__total_number">0đ</span>
+        <span className="cart__total_title">TOTAL:</span>
+        <span className="cart__total_number">{totalAmount} $</span>
       </div>
       <div className="cart__btn">
         <div className="cart__btn_w" onClick={cartHandler}>
