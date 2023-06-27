@@ -10,9 +10,18 @@ const LoadingPage = () => {
         textAlign: "center",
         justifyContent: "center",
         alignItems: "center",
+        height: "100%",
       }}
     >
-      <Space>
+      <Space
+        style={{
+          width: "100%",
+          textAlign: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
         <Spin tip="Loading" size="large" />
       </Space>
     </Space>

@@ -89,7 +89,7 @@ const HeaderPage = () => {
   ];
   const navItems = links.map((item, index) => {
     return (
-      <div className="navbar__item">
+      <div key={index} className="navbar__item">
         <Link
           className={`navbar__item_content ${
             pathname === item.href ? "active" : ""

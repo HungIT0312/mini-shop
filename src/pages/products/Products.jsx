@@ -1,27 +1,31 @@
-import { Row, theme } from "antd";
+import { Row, Select, Space, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
-import React, { useEffect, useState } from "react";
-import SideBar from "../../components/sidebar/SideMenu";
-import { getAllProducts } from "../../api/products/GetAll";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Product from "../../components/product/Product";
-
+import SideBar from "../../components/sidebar/SideMenu";
+import { productsAction } from "../../stores/products/product-slice";
+import LoadingPage from "../loading/LoadingPage";
 const Products = (props) => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const { products, loading } = useSelector((state) => state.products);
+
   useEffect(() => {
-    const _getAllProducts = async () => {
-      const res = await getAllProducts();
-      console.log(res);
-      setProducts(res.products);
-    };
-    _getAllProducts();
-  }, []);
+    dispatch(productsAction.getAllProduct());
+  }, [dispatch]);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const renderProducts = products.map((product, index) => {
+
+  const renderProducts = products?.map((product, index) => {
     return <Product key={product.id} product={product} />;
   });
+
+  const onSelectedKeyHandler = (e) => {
+    console.log(e);
+  };
   return (
     <>
       <Sider
@@ -40,7 +44,36 @@ const Products = (props) => {
           marginTop: 30,
         }}
       >
-        <Row gutter={16}>{renderProducts}</Row>
+        <Space style={{ float: "right", padding: "0px 16px" }}>
+          <Select
+            defaultValue="sortAZ"
+            style={{
+              width: 120,
+            }}
+            onChange={onSelectedKeyHandler}
+            options={[
+              {
+                value: "sortAZ",
+                label: "A-Z",
+              },
+              {
+                value: "sortZA",
+                label: "Z-A",
+              },
+              {
+                value: "Decrease",
+                label: "Decrease",
+              },
+              {
+                value: "Increase",
+                label: "Increase",
+              },
+            ]}
+          />
+        </Space>
+        <Space style={{ marginTop: 32 }}>
+          {loading ? <LoadingPage /> : <Row gutter={16}>{renderProducts}</Row>}
+        </Space>
       </Content>
     </>
   );
