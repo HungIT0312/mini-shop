@@ -1,7 +1,7 @@
 import { Row, Select, Space, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "../../components/product/Product";
 import SideBar from "../../components/sidebar/SideMenu";
@@ -10,22 +10,69 @@ import LoadingPage from "../loading/LoadingPage";
 const Products = (props) => {
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.products);
-
+  const [productSort, setProductSort] = useState([]);
   useEffect(() => {
     dispatch(productsAction.getAllProduct());
   }, [dispatch]);
+  useEffect(() => {
+    setProductSort(products);
+  }, [products]);
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const renderProducts = products?.map((product, index) => {
+  const renderProducts = productSort?.map((product, index) => {
     return <Product key={product.id} product={product} />;
   });
-
   const onSelectedKeyHandler = (e) => {
-    console.log(e);
+    let res = [];
+    const newArr = [...products];
+    switch (e) {
+      case "none":
+        setProductSort(products);
+        break;
+      case "sortAZ":
+        res = newArr.sort((a, b) => {
+          const titleA = a.title.toLowerCase();
+          const titleB = b.title.toLowerCase();
+          if (titleA < titleB) {
+            return -1;
+          }
+          if (titleA > titleB) {
+            return 1;
+          }
+          return 0;
+        });
+        setProductSort(res);
+        break;
+      case "sortZA":
+        res = newArr.sort((a, b) => {
+          const titleA = a.title.toLowerCase();
+          const titleB = b.title.toLowerCase();
+          if (titleA > titleB) {
+            return -1;
+          }
+          if (titleA < titleB) {
+            return 1;
+          }
+          return 0;
+        });
+        setProductSort(res);
+        break;
+      case "Decrease":
+        res = newArr.sort((a, b) => b.price - a.price);
+        setProductSort(res);
+        break;
+      case "Increase":
+        res = newArr.sort((a, b) => a.price - b.price);
+        setProductSort(res);
+        break;
+      default:
+        break;
+    }
   };
+
   return (
     <>
       <Sider
@@ -46,12 +93,16 @@ const Products = (props) => {
       >
         <Space style={{ float: "right", padding: "0px 16px" }}>
           <Select
-            defaultValue="sortAZ"
+            defaultValue="none"
             style={{
               width: 120,
             }}
             onChange={onSelectedKeyHandler}
             options={[
+              {
+                value: "none",
+                label: "Sort",
+              },
               {
                 value: "sortAZ",
                 label: "A-Z",
@@ -73,6 +124,7 @@ const Products = (props) => {
         </Space>
         <Space style={{ marginTop: 32 }}>
           {loading ? <LoadingPage /> : <Row gutter={16}>{renderProducts}</Row>}
+          {/* {console.log(products)} */}
         </Space>
       </Content>
     </>
