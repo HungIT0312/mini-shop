@@ -5,11 +5,11 @@
     z-index: 10;
   }
   &__box {
+    position: sticky;
+    top: 80px;
     display: flex;
     flex-direction: column;
-    top: 80px;
     left: 0;
-    margin-right: 16px;
   }
   &__main {
     border-left: 1px solid #ccc;
@@ -26,6 +26,8 @@
 .product {
   &__information {
     font-family: "Montserrat", sans-serif;
+    position: sticky;
+    top: 80px;
   }
   &__name {
     font-family: "Alfa Slab One", sans-serif;

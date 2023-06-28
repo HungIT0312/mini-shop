@@ -58,8 +58,8 @@ const Detail = (props) => {
     );
   });
   return (
-    <Row>
-      <Col md={4}>
+    <Row gutter={16} style={{ marginTop: 64 }}>
+      <Col md={4} style={{ position: "relative" }}>
         <Space className="image__box">{renderImage}</Space>
       </Col>
       <Col md={10}>
@@ -67,7 +67,7 @@ const Detail = (props) => {
           <Image height={700} src={mainImage} preview={false} />
         </Space>
       </Col>
-      <Col md={10}>
+      <Col md={10} style={{ position: "relative" }}>
         <Space className="product__information" direction="vertical">
           <div className="product__name ">{product?.title.toUpperCase()}</div>
           <div className="product__id border-bot-dashed">ID: {product?.id}</div>
