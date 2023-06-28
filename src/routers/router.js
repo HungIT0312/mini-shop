@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
+import CartDetail from "../components/cart/CartDetail";
 import CollectionsLayout from "../layouts/CollectionsLayout";
 import HomePage from "../pages/home/HomePage";
 import LoadingPage from "../pages/loading/LoadingPage";
-import Products from "../pages/products/Products";
-import Cart from "../components/cart/Cart";
 import Login from "../pages/login/Login";
-import Register from "../pages/register/Register";
 import Detail from "../pages/product-detail/Detail";
+import Products from "../pages/products/Products";
+import Register from "../pages/register/Register";
+import CheckOut from "../components/checkout/CheckOut";
+import User from "../components/user/User";
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -22,7 +24,11 @@ const routers = createBrowserRouter([
     children: [
       {
         path: ":idCart",
-        element: <LoadingPage />,
+        element: <CheckOut />,
+      },
+      {
+        path: "",
+        element: <User onLogin={true} />,
       },
     ],
   },
@@ -32,11 +38,11 @@ const routers = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Cart />,
+        element: <CartDetail />,
       },
       {
         path: "information",
-        element: <LoadingPage />,
+        element: <CartDetail />,
       },
     ],
   },

@@ -16,8 +16,12 @@ const User = (props) => {
     }
   }, []);
   const onLoginHandler = () => {
-    props.drawer(false);
-    navigate("/account/login");
+    if (props.onLogin) {
+      navigate("/account/login");
+    } else {
+      props?.drawer(false);
+      navigate("/account/login");
+    }
   };
   return (
     <Space className="infor">

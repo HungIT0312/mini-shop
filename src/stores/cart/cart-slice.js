@@ -29,7 +29,7 @@ const cartSlice = createSlice({
       state.totalAmount += money;
     },
     deleteCartItem: (state, action) => {
-      const itemID = action.payload;
+      const itemID = action.payload.id;
       const existedItem = state.items.find((item) => {
         return item.id === itemID;
       });
